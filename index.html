@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruleta del Picnic</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .wheel-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 0 auto;
+    }
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: conic-gradient(
+        #ff9999 0% 14.28%, 
+        #ffcc99 14.28% 28.56%, 
+        #ffff99 28.56% 42.84%, 
+        #ccff99 42.84% 57.12%, 
+        #99ff99 57.12% 71.4%, 
+        #99ffff 71.4% 85.68%, 
+        #9999ff 85.68% 100%
+      );
+      transform: rotate(0deg);
+      transition: transform 3s ease-out;
+    }
+    .button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ruleta del Picnic</h1>
+  <p>¡Haz girar la ruleta y descubre qué te toca llevar!</p>
+  <div class="wheel-container">
+    <div class="wheel" id="wheel"></div>
+  </div>
+  <button class="button" onclick="spin()">Girar</button>
+  <div id="result"></div>
+
+  <script>
+    const options = [
+      "Sandwiches o wraps",
+      "Frutas frescas",
+      "Bebidas (agua, jugos, gaseosas)",
+      "Snacks salados",
+      "Dulces o postres",
+      "Manta o cobija",
+      "Utensilios (platos, vasos, servilletas)",
+      "Bolsas para basura y toallas húmedas"
+    ];
+
+    function spin() {
+      const wheel = document.getElementById("wheel");
+      const randomDegree = Math.floor(Math.random() * 360) + 3600; // Al menos 10 giros
+      wheel.style.transform = `rotate(${randomDegree}deg)`;
+
+      const index = Math.floor(((randomDegree % 360) / 360) * options.length);
+      setTimeout(() => {
+        document.getElementById("result").innerText = `¡Te toca: ${options[index]}!`;
+      }, 3000); // Espera a que termine la animación
+    }
+  </script>
+</body>
+</html>
